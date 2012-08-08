@@ -13,7 +13,7 @@ using namespace Eigen;
 
 void genPoints(int numPoints, int pointDimension, list<RowVectorXd> * pointsList)
 {
-    srand(time(NULL));
+    pointsList->clear();
 
     double tempDouble;
     RowVectorXd tempVector;

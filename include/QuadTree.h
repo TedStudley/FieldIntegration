@@ -1,15 +1,17 @@
 #ifndef QUADTREE_H
 #define QUADTREE_H
 
-#include <list>
+#include <vector>
+#include <Dense>
 
 using namespace std;
+using namespace Eigen;
 
 class QuadTree {
     public:
         QuadTree * parent;
-        QuadTree * children[4];
-        list <RowVectorXd> * contents;
+        QuadTree * children;
+        vector <RowVectorXd> * contents;
 
         void makeRoot()
             {parent = NULL;};
@@ -18,13 +20,12 @@ class QuadTree {
         QuadTree * moveDown(int n)
             {if(n<0 || n > 3 || children == NULL)
                 return NULL;
-             return children[n];
+             return (children + sizeof(QuadTree *) * n);
             }
         void subDivide()
-            {
-                children = new QuadTree*[4];
-            }
-
+            { children = new QuadTree[4];}
 };
+
+vector <RowVectorXd> findCorners(vector <int>);
 
 #endif // QUADTREE_H

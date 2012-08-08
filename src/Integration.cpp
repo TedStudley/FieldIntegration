@@ -103,3 +103,23 @@ RowVectorXd integrateStepRKF45(RowVectorXd initial, double delta_t)
     x += 16 * k1 / 135 + 6656 * k3 / 12825 + 28561 * k4 / 56430 - 9 * k5 / 50 + 2 * k6 / 55;
     return x;
 }
+
+double findRKF45Error(RowVectorXd initial, double delta_t)
+{
+    RowVectorXd x4 = initial;
+    RowVectorXd x5 = initial;
+    RowVectorXd final;
+    RowVectorXd k1, k2, k3, k4, k5, k6;
+    k1 = delta_t * interpolate(initial);
+    k2 = delta_t * interpolate(initial + k1 / 4);
+    k3 = delta_t * interpolate(initial + 3 * k1 / 32 + 9 * k2 / 32);
+    k4 = delta_t * interpolate(initial + 1932 * k1 / 2197 - 7200 * k2 / 2197 + 7296 * k3 / 2197);
+    k5 = delta_t * interpolate(initial + 439 * k1 / 216 - 8 * k2 + 3680 * k3 / 513 - 845 * k4 / 4103);
+    k6 = delta_t * interpolate(initial - 8 * k1 / 27 + 2 * k2 - 3544 * k3 / 2565 + 1859 * k4 / 4104 - 11 * k5 / 40);
+    x4 += 25 * k1 / 216 + 1408 * k3 / 2565 + 2197 * k4 / 4104 - k5 / 5;
+    x5 += 16 * k1 / 135 + 6656 * k3 / 12825 + 28561 * k4 / 56430 - 9 * k5 / 50 + 2 * k6 / 55;
+
+    final = x5-x4;
+
+    return final.norm();
+}

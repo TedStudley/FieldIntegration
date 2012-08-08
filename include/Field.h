@@ -26,8 +26,14 @@ class FieldV
         int dim();
         void initialize(int);
         void inputValues();
+        void genField(int);
+        double calcCurl();
+        double calcLinearity(RowVectorXd, double);
 };
 
 bool withinBounds(RowVectorXd);
+
+double EulerLinearityThreshold(double, double);
+double RK2LinearityThreshold(double, double);
 
 #endif // FIELD_H

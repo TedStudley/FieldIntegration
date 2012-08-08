@@ -2,6 +2,11 @@
 #define INTEGRATION_H
 
 #include <Dense>
+#include <vector>
+
+#define EULERCOST   1
+#define RK2COST     2
+#define RK4COST     4
 
 RowVectorXd integrateEuler(RowVectorXd, double, double);
 RowVectorXd integrateStepEuler(RowVectorXd, double);
@@ -14,5 +19,9 @@ RowVectorXd integrateStepRK4(RowVectorXd, double);
 
 RowVectorXd integrateRKF45(RowVectorXd, double, double);
 RowVectorXd integrateStepRKF45(RowVectorXd, double);
+
+double findRKF45Error(RowVectorXd, double);
+
+double integrateCurl(vector <RowVectorXd>);
 
 #endif // INTEGRATION_H
